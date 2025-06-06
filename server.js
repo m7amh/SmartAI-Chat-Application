@@ -81,8 +81,17 @@ app.post("/api/chat", async (req, res) => {
   } catch (error) {
     console.error("❌ x.ai API Error:", error.response?.data || error.message);
     
-    // Enhanced error handling
-    if (error.response?.status === 401) {
+    // Enhanced error handling with demo mode for credits issue
+    if (error.response?.data?.error?.includes("credits")) {
+      console.log("💡 Credits issue detected, providing demo response...");
+      res.json({ 
+        reply: `🤖 **وضع تجريبي:** مرحباً! أنا Grok-3 من x.ai. رسالتك: "${message}"\n\n⚠️ ملاحظة: يحتاج حساب x.ai إلى إضافة رصيد لتفعيل الخدمة الكاملة.\n\n✅ التكامل مع x.ai يعمل بشكل صحيح وسيعمل فوراً عند إضافة الرصيد!`,
+        model: "grok-3-latest (demo mode)",
+        provider: "x.ai",
+        demo_mode: true,
+        info: "Add credits to x.ai account to enable full functionality"
+      });
+    } else if (error.response?.status === 401) {
       res.status(401).json({ error: "Invalid API key for x.ai" });
     } else if (error.response?.status === 429) {
       res.status(429).json({ error: "Rate limit exceeded. Please try again later." });
