@@ -1,0 +1,15 @@
+
+> car-website-master@1.0.0 start
+> node server.js
+
+🤖 SmartAI Server starting with x.ai Grok-3 integration...
+🎯 SmartAI Server running on http://localhost:4000
+🤖 Using x.ai Grok-3 Latest model
+🔑 API Key configured: Yes
+📨 Received POST /api/chat with message: مرحبا، كيف حالك؟
+🚀 Sending request to x.ai Grok API...
+❌ x.ai API Error: {
+  code: 'The caller does not have permission to execute the specified operation',
+  error: "Your newly created teams doesn't have any credits yet. You can purchase credits on https://console.x.ai/team/6835f69d-981c-4cfe-9266-5239727c61cb."
+}
+💡 Credits issue detected, providing demo response...
