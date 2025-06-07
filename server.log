@@ -8,46 +8,6 @@
 🔑 API Key configured: Yes
 🌟 Enhanced with Arabic/English support
 Health check requested
-📨 Received POST /api/chat with message: مرحبا! كيف حالك؟ أريد أن أختبر النظام الجديد
-🚀 Sending request to Groq Llama-4 Scout API...
-✅ Groq API response received successfully
-📨 Received POST /api/chat with message: Hello! Can you help me understand what you can do?
-🚀 Sending request to Groq Llama-4 Scout API...
-✅ Groq API response received successfully
-Health check requested
-📨 Received POST /api/chat with message: Hello, how are you today?
-🚀 Sending request to Groq Llama-4 Scout API...
-✅ Groq API response received successfully
-📨 Received POST /api/chat with message: مرحبا، كيف حالك اليوم؟
-🚀 Sending request to Groq Llama-4 Scout API...
-✅ Groq API response received successfully
-📨 Received POST /api/chat with message: 
-❌ Error: No message provided
-📨 Received POST /api/chat with message: undefined
-❌ Error: No message provided
-📨 Received POST /api/chat with message: Tell me a joke
-🚀 Sending request to Groq Llama-4 Scout API...
-✅ Groq API response received successfully
-Health check requested
-📨 Received POST /api/chat with message: Hello, how are you today?
-🚀 Sending request to Groq Llama-4 Scout API...
-✅ Groq API response received successfully
-📨 Received POST /api/chat with message: مرحبا، كيف حالك اليوم؟
-🚀 Sending request to Groq Llama-4 Scout API...
-✅ Groq API response received successfully
-📨 Received POST /api/chat with message: 
-❌ Error: No message provided
-📨 Received POST /api/chat with message: undefined
-❌ Error: No message provided
-📨 Received POST /api/chat with message: Tell me a joke
-🚀 Sending request to Groq Llama-4 Scout API...
-✅ Groq API response received successfully
-📨 Received POST /api/chat with message: Hello! Can you tell me what you can do?
-🚀 Sending request to Groq Llama-4 Scout API...
-✅ Groq API response received successfully
-📨 Received POST /api/chat with message: مرحبا! كيف يمكنك مساعدتي؟
-🚀 Sending request to Groq Llama-4 Scout API...
-✅ Groq API response received successfully
-📨 Received POST /api/chat with message: Let's start a new conversation
+📨 Received POST /api/chat with message: اختبر الميزات الجديدة
 🚀 Sending request to Groq Llama-4 Scout API...
 ✅ Groq API response received successfully
