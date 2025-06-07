@@ -3,142 +3,870 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ai_M7M7</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
+  <title>SmartAI - مساعد ذكي</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
+    :root {
+      --primary-color: #007bff;
+      --secondary-color: #6c757d;
+      --success-color: #28a745;
+      --danger-color: #dc3545;
+      --warning-color: #ffc107;
+      --info-color: #17a2b8;
+      --light-color: #f8f9fa;
+      --dark-color: #343a40;
+      --bg-color: #f0f2f5;
+      --chat-bg: #ffffff;
+      --user-msg-bg: var(--primary-color);
+      --bot-msg-bg: #e9ecef;
+      --border-radius: 12px;
+      --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    [data-theme="dark"] {
+      --bg-color: #1a1a1a;
+      --chat-bg: #2d2d2d;
+      --light-color: #3d3d3d;
+      --dark-color: #ffffff;
+      --bot-msg-bg: #404040;
+      --border-color: #555;
+    }
+
+    [data-theme="blue"] {
+      --primary-color: #1e3a8a;
+      --user-msg-bg: #1e3a8a;
+      --bg-color: #dbeafe;
+    }
+
+    [data-theme="green"] {
+      --primary-color: #059669;
+      --user-msg-bg: #059669;
+      --bg-color: #d1fae5;
+    }
+
+    [data-theme="purple"] {
+      --primary-color: #7c3aed;
+      --user-msg-bg: #7c3aed;
+      --bg-color: #ede9fe;
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
       font-family: 'Cairo', sans-serif;
     }
+
     body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      background: var(--bg-color);
+      color: var(--dark-color);
+      transition: var(--transition);
       min-height: 100vh;
-      background: #f0f2f5;
+      padding: 10px;
     }
-    .chat-wrapper {
-      width: 100%;
-      max-width: 600px;
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      padding: 20px;
+
+    .app-container {
+      max-width: 800px;
+      margin: 0 auto;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      height: calc(100vh - 20px);
+      background: var(--chat-bg);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
     }
-    .logo {
-      font-size: 24px;
-      font-weight: 600;
+
+    .header {
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-color)dd);
+      color: white;
+      padding: 20px;
       text-align: center;
-      color: #333;
-    }
-    .chat-box {
-      flex: 1;
-      max-height: 500px;
-      overflow-y: auto;
-      padding: 10px;
-      background: #fafafa;
-      border-radius: 8px;
-    }
-    .user, .bot {
-      margin: 10px 0;
-      padding: 10px;
-      border-radius: 8px;
       position: relative;
     }
-    .user {
-      background: #007bff;
-      color: #fff;
-      margin-right: 20%;
-      text-align: right;
+
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 5px;
     }
-    .bot {
-      background: #e9ecef;
-      color: #333;
-      margin-left: 20%;
-      text-align: right;
-    }
-    .timestamp {
+
+    .model-info {
       font-size: 12px;
-      color: #777;
-      margin-top: 5px;
+      opacity: 0.9;
     }
+
+    .settings-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .settings-btn:hover {
+      background: rgba(255,255,255,0.3);
+    }
+
+    .status-indicator {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--success-color);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
+
+    .chat-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .chat-box {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      background: var(--light-color);
+      scrollbar-width: thin;
+      scrollbar-color: var(--primary-color) transparent;
+    }
+
+    .chat-box::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .chat-box::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .chat-box::-webkit-scrollbar-thumb {
+      background: var(--primary-color);
+      border-radius: 3px;
+    }
+
+    .message {
+      margin: 15px 0;
+      padding: 15px 20px;
+      border-radius: var(--border-radius);
+      position: relative;
+      max-width: 80%;
+      animation: messageSlide 0.3s ease-out;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    @keyframes messageSlide {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .user {
+      background: var(--user-msg-bg);
+      color: white;
+      margin-left: auto;
+      margin-right: 0;
+      border-bottom-right-radius: 4px;
+    }
+
+    .bot {
+      background: var(--bot-msg-bg);
+      color: var(--dark-color);
+      margin-right: auto;
+      margin-left: 0;
+      border-bottom-left-radius: 4px;
+    }
+
+    .message-content {
+      line-height: 1.6;
+      word-wrap: break-word;
+    }
+
+    .timestamp {
+      font-size: 11px;
+      opacity: 0.7;
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
     .copy-btn {
       position: absolute;
-      top: 5px;
-      right: 5px;
-      background: none;
+      top: 8px;
+      right: 8px;
+      background: rgba(0,0,0,0.1);
       border: none;
+      padding: 5px 8px;
+      border-radius: 6px;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 12px;
+      transition: var(--transition);
+      opacity: 0;
     }
-    .input-area {
+
+    .message:hover .copy-btn {
+      opacity: 1;
+    }
+
+    .copy-btn:hover {
+      background: rgba(0,0,0,0.2);
+    }
+
+    .input-section {
+      background: var(--chat-bg);
+      padding: 20px;
+      border-top: 1px solid var(--light-color);
+    }
+
+    .input-container {
       display: flex;
       gap: 10px;
+      align-items: flex-end;
+      margin-bottom: 15px;
     }
-    #user-input {
+
+    .input-wrapper {
       flex: 1;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
+      position: relative;
+    }
+
+    #user-input {
+      width: 100%;
+      padding: 15px 50px 15px 15px;
+      border: 2px solid var(--light-color);
+      border-radius: var(--border-radius);
       outline: none;
+      font-size: 16px;
+      font-family: 'Cairo', sans-serif;
+      resize: none;
+      min-height: 50px;
+      max-height: 120px;
+      transition: var(--transition);
+      background: var(--light-color);
+      color: var(--dark-color);
     }
+
     #user-input:focus {
-      border-color: #007bff;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
     }
-    button {
-      padding: 10px 20px;
+
+    .voice-btn {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
       border: none;
-      background: #007bff;
-      color: #fff;
-      border-radius: 5px;
+      color: var(--secondary-color);
+      font-size: 18px;
       cursor: pointer;
+      padding: 8px;
+      border-radius: 6px;
+      transition: var(--transition);
     }
-    button:hover {
-      background: #0056b3;
+
+    .voice-btn:hover {
+      color: var(--primary-color);
+      background: rgba(0,123,255,0.1);
     }
-    .chat-options {
+
+    .voice-btn.recording {
+      color: var(--danger-color);
+      animation: pulse 1s infinite;
+    }
+
+    .send-btn {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 15px 25px;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      transition: var(--transition);
       display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .send-btn:hover:not(:disabled) {
+      background: var(--primary-color)dd;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,123,255,0.3);
+    }
+
+    .send-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
       justify-content: space-between;
     }
+
+    .control-btn {
+      background: var(--light-color);
+      border: 1px solid var(--secondary-color);
+      color: var(--dark-color);
+      padding: 8px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .control-btn:hover {
+      background: var(--secondary-color);
+      color: white;
+    }
+
     .loading {
       text-align: center;
-      color: #777;
+      color: var(--secondary-color);
       font-style: italic;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .loading::before {
+      content: '';
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--light-color);
+      border-top: 2px solid var(--primary-color);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .settings-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .settings-content {
+      background: var(--chat-bg);
+      padding: 30px;
+      border-radius: var(--border-radius);
+      max-width: 500px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      color: var(--dark-color);
+    }
+
+    .setting-group {
+      margin-bottom: 25px;
+    }
+
+    .setting-label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--dark-color);
+    }
+
+    .setting-input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid var(--light-color);
+      border-radius: 8px;
+      font-family: 'Cairo', sans-serif;
+      background: var(--light-color);
+      color: var(--dark-color);
+    }
+
+    .theme-selector {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .theme-option {
+      padding: 15px 10px;
+      border: 2px solid var(--light-color);
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: center;
+      font-size: 12px;
+      transition: var(--transition);
+    }
+
+    .theme-option.active {
+      border-color: var(--primary-color);
+      background: rgba(0,123,255,0.1);
+    }
+
+    .save-settings-btn {
+      background: var(--success-color);
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .close-settings {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--secondary-color);
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      body {
+        padding: 5px;
+      }
+
+      .app-container {
+        height: calc(100vh - 10px);
+        border-radius: 0;
+      }
+
+      .header {
+        padding: 15px;
+      }
+
+      .logo {
+        font-size: 20px;
+      }
+
+      .settings-btn {
+        top: 15px;
+        left: 15px;
+        padding: 6px 10px;
+      }
+
+      .status-indicator {
+        top: 15px;
+        right: 15px;
+      }
+
+      .chat-box {
+        padding: 15px;
+      }
+
+      .message {
+        max-width: 90%;
+        padding: 12px 15px;
+      }
+
+      .input-section {
+        padding: 15px;
+      }
+
+      #user-input {
+        font-size: 16px;
+        padding: 12px 40px 12px 12px;
+      }
+
+      .send-btn {
+        padding: 12px 20px;
+      }
+
+      .controls {
+        gap: 8px;
+      }
+
+      .control-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+      }
+
+      .settings-content {
+        padding: 20px;
+        margin: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .message {
+        max-width: 95%;
+      }
+
+      .input-container {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .send-btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .controls {
+        justify-content: center;
+      }
     }
   </style>
 </head>
-<body>
-  <div class="chat-wrapper">
-    <div class="logo">🤖 <span> SmartAI</span> <small style="font-size: 14px; color: #666;">powered by Groq Llama-4 Scout</small></div>
-    <div class="chat-box" id="chat-box"></div>
-    <div class="input-area">
-      <input type="text" id="user-input" placeholder="Write a message... (press Enter to send)" onkeydown="handleKey(event)" />
-      <button onclick="sendMessage()">send</button>
+<body data-theme="light">
+  <div class="app-container">
+    <!-- Header -->
+    <div class="header">
+      <button class="settings-btn" onclick="openSettings()">
+        <i class="fas fa-cog"></i>
+      </button>
+      <div class="status-indicator">
+        <div class="status-dot"></div>
+        <span>متصل</span>
+      </div>
+      <div class="logo">
+        🤖 <span>SmartAI</span>
+      </div>
+      <div class="model-info">مدعوم بـ Groq Llama-4 Scout</div>
     </div>
-    <div class="chat-options">
-        <button onclick="clearChat()">🗑 Clear Chat</button>
-        <button onclick="exportChat()">📤 Export Chat</button>
-        <button onclick="resetSending()">🔄 Reset</button>
+
+    <!-- Chat Container -->
+    <div class="chat-container">
+      <div class="chat-box" id="chat-box">
+        <div class="message bot">
+          <div class="message-content">
+            مرحباً! أنا SmartAI، مساعدك الذكي المدعوم بنموذج Llama-4 Scout. 
+            يمكنني مساعدتك في الأسئلة والمحادثات باللغتين العربية والإنجليزية.
+            جرب الميزات الجديدة مثل الأوامر الصوتية والثيمات المختلفة! 🎤🎨
+          </div>
+          <div class="timestamp">
+            <i class="fas fa-robot"></i>
+            <span>الآن</span>
+          </div>
         </div>
+      </div>
+
+      <!-- Input Section -->
+      <div class="input-section">
+        <div class="input-container">
+          <div class="input-wrapper">
+            <textarea 
+              id="user-input" 
+              placeholder="اكتب رسالتك هنا... (اضغط Enter للإرسال)"
+              onkeydown="handleKey(event)"
+              rows="1"
+            ></textarea>
+            <button class="voice-btn" onclick="toggleVoiceRecording()" title="تسجيل صوتي">
+              <i class="fas fa-microphone" id="voice-icon"></i>
+            </button>
+          </div>
+          <button class="send-btn" onclick="sendMessage()" id="send-btn">
+            <i class="fas fa-paper-plane"></i>
+            <span>إرسال</span>
+          </button>
+        </div>
+
+        <div class="controls">
+          <button class="control-btn" onclick="clearChat()">
+            <i class="fas fa-trash"></i>
+            مسح المحادثة
+          </button>
+          <button class="control-btn" onclick="exportChat()">
+            <i class="fas fa-download"></i>
+            تصدير
+          </button>
+          <button class="control-btn" onclick="resetSending()">
+            <i class="fas fa-refresh"></i>
+            إعادة تعيين
+          </button>
+          <button class="control-btn" onclick="toggleDirection()">
+            <i class="fas fa-exchange-alt"></i>
+            <span id="dir-text">English</span>
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
-  <audio id="notify-sound" src="https://assets.mixkit.co/sfx/download/mixkit-bubble-pop-up-alert-notification-2357.mp3" preload="auto"></audio>
-  
+
+  <!-- Settings Modal -->
+  <div class="settings-modal" id="settings-modal">
+    <div class="settings-content">
+      <button class="close-settings" onclick="closeSettings()">×</button>
+      <h3 style="margin-bottom: 20px;">⚙️ إعدادات التطبيق</h3>
+
+      <div class="setting-group">
+        <label class="setting-label">🎨 اختر الثيم:</label>
+        <div class="theme-selector">
+          <div class="theme-option active" data-theme="light">
+            <div style="background: #f8f9fa; height: 20px; border-radius: 4px; margin-bottom: 5px;"></div>
+            فاتح
+          </div>
+          <div class="theme-option" data-theme="dark">
+            <div style="background: #2d2d2d; height: 20px; border-radius: 4px; margin-bottom: 5px;"></div>
+            داكن
+          </div>
+          <div class="theme-option" data-theme="blue">
+            <div style="background: #1e3a8a; height: 20px; border-radius: 4px; margin-bottom: 5px;"></div>
+            أزرق
+          </div>
+          <div class="theme-option" data-theme="green">
+            <div style="background: #059669; height: 20px; border-radius: 4px; margin-bottom: 5px;"></div>
+            أخضر
+          </div>
+          <div class="theme-option" data-theme="purple">
+            <div style="background: #7c3aed; height: 20px; border-radius: 4px; margin-bottom: 5px;"></div>
+            بنفسجي
+          </div>
+        </div>
+      </div>
+
+      <div class="setting-group">
+        <label class="setting-label" for="assistant-name">🤖 اسم المساعد:</label>
+        <input type="text" class="setting-input" id="assistant-name" value="SmartAI" />
+      </div>
+
+      <div class="setting-group">
+        <label class="setting-label" for="temperature">🌡️ مستوى الإبداع (0-1):</label>
+        <input type="range" class="setting-input" id="temperature" min="0" max="1" step="0.1" value="0.7" />
+        <small style="color: var(--secondary-color);">منخفض = أكثر دقة، عالي = أكثر إبداعاً</small>
+      </div>
+
+      <div class="setting-group">
+        <label class="setting-label">🔊 تفعيل الأصوات:</label>
+        <input type="checkbox" id="sound-enabled" checked /> تشغيل أصوات التنبيهات
+      </div>
+
+      <div class="setting-group">
+        <label class="setting-label">🎤 تفعيل الأوامر الصوتية:</label>
+        <input type="checkbox" id="voice-enabled" checked /> تشغيل التعرف على الكلام
+      </div>
+
+      <button class="save-settings-btn" onclick="saveSettings()">
+        <i class="fas fa-save"></i> حفظ الإعدادات
+      </button>
+    </div>
+  </div>
+
+  <!-- Audio Elements -->
+  <audio id="notify-sound" preload="auto">
+    <source src="https://assets.mixkit.co/sfx/download/mixkit-bubble-pop-up-alert-notification-2357.mp3" type="audio/mpeg">
+  </audio>
+
   <script>
+    // Global Variables
     const chatBox = document.getElementById("chat-box");
     const userInput = document.getElementById("user-input");
     const notifySound = document.getElementById("notify-sound");
+    const sendBtn = document.getElementById("send-btn");
+    const voiceBtn = document.querySelector(".voice-btn");
+    const voiceIcon = document.getElementById("voice-icon");
+    
     let isSending = false;
+    let isRecording = false;
+    let recognition = null;
+    let currentSettings = {
+      theme: 'light',
+      assistantName: 'SmartAI',
+      temperature: 0.7,
+      soundEnabled: true,
+      voiceEnabled: true
+    };
+
+    // Initialize App
+    document.addEventListener('DOMContentLoaded', function() {
+      loadSettings();
+      loadChatHistory();
+      initSpeechRecognition();
+      setupTextareaAutoResize();
+      userInput.focus();
+    });
+
+    // Load Settings
+    function loadSettings() {
+      const saved = localStorage.getItem('smartai-settings');
+      if (saved) {
+        currentSettings = { ...currentSettings, ...JSON.parse(saved) };
+      }
+      applySettings();
+    }
+
+    // Apply Settings
+    function applySettings() {
+      document.body.setAttribute('data-theme', currentSettings.theme);
+      document.getElementById('assistant-name').value = currentSettings.assistantName;
+      document.getElementById('temperature').value = currentSettings.temperature;
+      document.getElementById('sound-enabled').checked = currentSettings.soundEnabled;
+      document.getElementById('voice-enabled').checked = currentSettings.voiceEnabled;
+      
+      // Update theme selector
+      document.querySelectorAll('.theme-option').forEach(option => {
+        option.classList.toggle('active', option.dataset.theme === currentSettings.theme);
+      });
+    }
+
+    // Save Settings
+    function saveSettings() {
+      currentSettings.theme = document.querySelector('.theme-option.active').dataset.theme;
+      currentSettings.assistantName = document.getElementById('assistant-name').value;
+      currentSettings.temperature = parseFloat(document.getElementById('temperature').value);
+      currentSettings.soundEnabled = document.getElementById('sound-enabled').checked;
+      currentSettings.voiceEnabled = document.getElementById('voice-enabled').checked;
+      
+      localStorage.setItem('smartai-settings', JSON.stringify(currentSettings));
+      applySettings();
+      closeSettings();
+      
+      appendMessage("bot", "✅ تم حفظ الإعدادات بنجاح!");
+    }
+
+    // Theme Selection
+    document.addEventListener('click', function(e) {
+      if (e.target.closest('.theme-option')) {
+        document.querySelectorAll('.theme-option').forEach(opt => opt.classList.remove('active'));
+        e.target.closest('.theme-option').classList.add('active');
+      }
+    });
+
+    // Settings Modal
+    function openSettings() {
+      document.getElementById('settings-modal').style.display = 'flex';
+    }
+
+    function closeSettings() {
+      document.getElementById('settings-modal').style.display = 'none';
+    }
+
+    // Speech Recognition
+    function initSpeechRecognition() {
+      if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        recognition = new SpeechRecognition();
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        recognition.lang = 'ar-SA';
+
+        recognition.onstart = function() {
+          isRecording = true;
+          voiceIcon.className = 'fas fa-stop';
+          voiceBtn.classList.add('recording');
+          voiceBtn.title = 'إيقاف التسجيل';
+        };
+
+        recognition.onresult = function(event) {
+          const transcript = event.results[0][0].transcript;
+          userInput.value = transcript;
+          userInput.focus();
+        };
+
+        recognition.onend = function() {
+          isRecording = false;
+          voiceIcon.className = 'fas fa-microphone';
+          voiceBtn.classList.remove('recording');
+          voiceBtn.title = 'تسجيل صوتي';
+        };
+
+        recognition.onerror = function(event) {
+          console.error('Speech recognition error:', event.error);
+          appendMessage("bot", "❌ خطأ في التعرف على الكلام. تأكد من السماح بالوصول للميكروفون.");
+        };
+      } else {
+        voiceBtn.style.display = 'none';
+        console.log('Speech recognition not supported');
+      }
+    }
+
+    // Toggle Voice Recording
+    function toggleVoiceRecording() {
+      if (!currentSettings.voiceEnabled) {
+        appendMessage("bot", "⚠️ الأوامر الصوتية غير مفعلة. يمكنك تفعيلها من الإعدادات.");
+        return;
+      }
+
+      if (!recognition) {
+        appendMessage("bot", "❌ التعرف على الكلام غير مدعوم في هذا المتصفح.");
+        return;
+      }
+
+      if (isRecording) {
+        recognition.stop();
+      } else {
+        recognition.start();
+      }
+    }
+
+    // Auto-resize textarea
+    function setupTextareaAutoResize() {
+      userInput.addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+      });
+    }
 
     // Load chat history from localStorage
     function loadChatHistory() {
       const history = JSON.parse(localStorage.getItem("chatHistory")) || [];
-      history.forEach(({ role, content, timestamp }) => appendMessage(role, content, timestamp));
+      chatBox.innerHTML = '';
+      
+      if (history.length === 0) {
+        // Add welcome message if no history
+        const welcomeMsg = {
+          role: 'bot',
+          content: `مرحباً! أنا ${currentSettings.assistantName}، مساعدك الذكي المدعوم بنموذج Llama-4 Scout. يمكنني مساعدتك في الأسئلة والمحادثات باللغتين العربية والإنجليزية. جرب الميزات الجديدة مثل الأوامر الصوتية والثيمات المختلفة! 🎤🎨`,
+          timestamp: new Date().toLocaleTimeString('ar-EG')
+        };
+        appendMessage(welcomeMsg.role, welcomeMsg.content, welcomeMsg.timestamp);
+      } else {
+        history.forEach(({ role, content, timestamp }) => appendMessage(role, content, timestamp));
+      }
     }
 
     // Save message to localStorage
@@ -151,30 +879,48 @@
     // Append message to chat box
     function appendMessage(role, content, timestamp = new Date().toLocaleTimeString('ar-EG')) {
       const msg = document.createElement("div");
-      msg.className = role;
-      msg.innerHTML = ` 
+      msg.className = `message ${role}`;
+      
+      const messageId = 'msg-' + Date.now();
+      msg.innerHTML = `
         <div class="message-content">${content}</div>
-        <div class="timestamp">${timestamp}</div>
-        <button class="copy-btn" onclick="copyMessage(this)">📋</button>
+        <div class="timestamp">
+          <i class="fas fa-${role === 'user' ? 'user' : 'robot'}"></i>
+          <span>${timestamp}</span>
+        </div>
+        <button class="copy-btn" onclick="copyMessage('${messageId}')" title="نسخ الرسالة">
+          <i class="fas fa-copy"></i>
+        </button>
       `;
+      msg.id = messageId;
+      
       chatBox.appendChild(msg);
       chatBox.scrollTop = chatBox.scrollHeight;
-      if (role === "bot") notifySound.play().catch(() => {});
+      
+      if (role === "bot" && currentSettings.soundEnabled) {
+        notifySound.play().catch(() => {});
+      }
     }
 
     // Copy message content
-    function copyMessage(btn) {
-      const content = btn.parentElement.querySelector(".message-content").textContent;
-      navigator.clipboard.writeText(content);
-      btn.textContent = "✅";
-      setTimeout(() => (btn.textContent = "📋"), 1000);
+    function copyMessage(messageId) {
+      const message = document.getElementById(messageId);
+      const content = message.querySelector(".message-content").textContent;
+      navigator.clipboard.writeText(content).then(() => {
+        const copyBtn = message.querySelector('.copy-btn');
+        const originalHTML = copyBtn.innerHTML;
+        copyBtn.innerHTML = '<i class="fas fa-check"></i>';
+        setTimeout(() => {
+          copyBtn.innerHTML = originalHTML;
+        }, 1000);
+      });
     }
 
     // Show loading indicator
     function showLoading() {
       const loading = document.createElement("div");
       loading.className = "loading";
-      loading.textContent = "Artificial intelligence thinks...";
+      loading.innerHTML = `<span>${currentSettings.assistantName} يفكر...</span>`;
       chatBox.appendChild(loading);
       chatBox.scrollTop = chatBox.scrollHeight;
       return loading;
@@ -189,7 +935,9 @@
     function resetSending() {
       isSending = false;
       userInput.disabled = false;
-      appendMessage("bot", "تم إعادة تعيين حالة الإرسال. حاول إرسال رسالتك مرة أخرى.");
+      sendBtn.disabled = false;
+      sendBtn.innerHTML = '<i class="fas fa-paper-plane"></i><span>إرسال</span>';
+      appendMessage("bot", "🔄 تم إعادة تعيين حالة الإرسال. يمكنك المحاولة مرة أخرى.");
     }
 
     // Send message to backend
@@ -199,51 +947,87 @@
 
       isSending = true;
       userInput.disabled = true;
+      sendBtn.disabled = true;
+      sendBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>جارٍ الإرسال...</span>';
+      
       const timestamp = new Date().toLocaleTimeString('ar-EG');
       appendMessage("user", message, timestamp);
       saveMessage("user", message, timestamp);
       userInput.value = "";
+      userInput.style.height = 'auto';
 
       const loading = showLoading();
 
       try {
-        const res = await fetch("http://localhost:4000/api/chat", {
+        const res = await fetch("/api/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message })
+          body: JSON.stringify({ 
+            message: message,
+            temperature: currentSettings.temperature 
+          })
         });
+        
         if (!res.ok) throw new Error(`Server responded with status ${res.status}`);
         const data = await res.json();
         if (!data.reply) throw new Error("No response from SmartAI");
+        
         appendMessage("bot", data.reply);
         saveMessage("bot", data.reply, new Date().toLocaleTimeString('ar-EG'));
+        
       } catch (err) {
-        appendMessage("bot", `خطأ: تعذر الاتصال بالخادم. تأكد أن الخادم يعمل وحاول مجددًا. (${err.message})`);
+        appendMessage("bot", `❌ خطأ: تعذر الاتصال بالخادم. ${err.message}`);
       } finally {
         removeLoading(loading);
         isSending = false;
         userInput.disabled = false;
+        sendBtn.disabled = false;
+        sendBtn.innerHTML = '<i class="fas fa-paper-plane"></i><span>إرسال</span>';
         userInput.focus();
       }
     }
 
     // Clear chat and localStorage
     function clearChat() {
-      chatBox.innerHTML = "";
-      localStorage.removeItem("chatHistory");
+      if (confirm("هل أنت متأكد من حذف جميع المحادثات؟")) {
+        chatBox.innerHTML = "";
+        localStorage.removeItem("chatHistory");
+        loadChatHistory(); // Reload welcome message
+      }
     }
 
     // Export chat as text
     function exportChat() {
       const history = JSON.parse(localStorage.getItem("chatHistory")) || [];
-      const text = history.map(({ role, content, timestamp }) => `[${timestamp}] ${role.toUpperCase()}: ${content}`).join("\n");
-      const blob = new Blob([text], { type: "text/plain" });
+      const text = history.map(({ role, content, timestamp }) => 
+        `[${timestamp}] ${role.toUpperCase()}: ${content}`
+      ).join("\n");
+      
+      const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = "smartai-chat.txt";
+      a.download = `smartai-chat-${new Date().toISOString().split('T')[0]}.txt`;
       a.click();
       URL.revokeObjectURL(url);
+    }
+
+    // Toggle Language Direction
+    function toggleDirection() {
+      const html = document.documentElement;
+      const dirText = document.getElementById('dir-text');
+      
+      if (html.getAttribute('dir') === 'rtl') {
+        html.setAttribute('dir', 'ltr');
+        html.setAttribute('lang', 'en');
+        dirText.textContent = 'العربية';
+        userInput.placeholder = "Type your message here... (Press Enter to send)";
+      } else {
+        html.setAttribute('dir', 'rtl');
+        html.setAttribute('lang', 'ar');
+        dirText.textContent = 'English';
+        userInput.placeholder = "اكتب رسالتك هنا... (اضغط Enter للإرسال)";
+      }
     }
 
     // Handle Enter key
@@ -254,9 +1038,33 @@
       }
     }
 
-    // Initialize
-    loadChatHistory();
-    userInput.focus();
+    // Close settings modal when clicking outside
+    document.getElementById('settings-modal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeSettings();
+      }
+    });
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+      // Ctrl/Cmd + , for settings
+      if ((e.ctrlKey || e.metaKey) && e.key === ',') {
+        e.preventDefault();
+        openSettings();
+      }
+      
+      // Ctrl/Cmd + K for clear chat
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        clearChat();
+      }
+      
+      // Alt + M for voice recording
+      if (e.altKey && e.key === 'm') {
+        e.preventDefault();
+        toggleVoiceRecording();
+      }
+    });
   </script>
 </body>
 </html>
