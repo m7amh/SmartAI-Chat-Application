@@ -5,3 +5,44 @@
 🤖 AI Model: Llama-4 Scout with enhanced safety
 🔑 API Key: ✅ Configured
 🌐 Environment: development
+🔍 Health check requested from: 127.0.0.1
+🔍 Health check requested from: 127.0.0.1
+📨 Secure chat request from: 127.0.0.1
+📝 Message length: 25
+🌡️ Temperature: 0.7
+🚀 Sending secure request to Groq API...
+✅ Groq API response received successfully
+📊 Response length: 256
+🔍 Tokens used: 168
+📨 Secure chat request from: 127.0.0.1
+📝 Message length: 22
+🌡️ Temperature: 0.7
+🚀 Sending secure request to Groq API...
+✅ Groq API response received successfully
+📊 Response length: 130
+🔍 Tokens used: 161
+❌ Validation errors: [
+  {
+    type: 'field',
+    value: '',
+    msg: 'Message must be between 1 and 2000 characters',
+    path: 'message',
+    location: 'body'
+  }
+]
+❌ Validation errors: [
+  {
+    type: 'field',
+    value: '',
+    msg: 'Message must be between 1 and 2000 characters',
+    path: 'message',
+    location: 'body'
+  }
+]
+📨 Secure chat request from: 127.0.0.1
+📝 Message length: 14
+🌡️ Temperature: 0.7
+🚀 Sending secure request to Groq API...
+✅ Groq API response received successfully
+📊 Response length: 129
+🔍 Tokens used: 138
