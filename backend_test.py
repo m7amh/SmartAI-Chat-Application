@@ -7,6 +7,7 @@ from datetime import datetime
 
 class SmartAIChatTester:
     def __init__(self, base_url="http://localhost:4000"):
+        # Use the base_url provided or default to localhost:4000
         self.base_url = base_url
         self.tests_run = 0
         self.tests_passed = 0
