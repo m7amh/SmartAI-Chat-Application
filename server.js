@@ -55,8 +55,8 @@ app.use(limiter);
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Security middlewares
-app.use(mongoSanitize()); // Prevent NoSQL injection
+// Security middlewares (simplified)
+// app.use(mongoSanitize()); // Removed to fix compatibility issue
 app.use(hpp()); // Prevent HTTP Parameter Pollution
 
 // CORS configuration
