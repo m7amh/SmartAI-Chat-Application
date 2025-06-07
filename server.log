@@ -1,7 +1,26 @@
-🤖 SmartAI Server starting with Groq Llama-4 Scout integration...
-🎯 SmartAI Server running on http://localhost:4000
-🤖 Using Groq Llama-4 Scout model
-🔑 API Key configured: Yes
-🌟 Enhanced with Arabic/English support
-❌ Error: Port 4000 is already in use.
-   Run: lsof -ti:4000 | xargs kill -9
+
+> car-website-master@1.0.0 start
+> node server.js
+
+🛡️ SmartAI Server starting with enhanced security...
+🤖 Using Groq Llama-4 Scout integration...
+🎯 SmartAI Secure Server running on http://localhost:4000
+🛡️ Security features: Rate limiting, XSS protection, Input validation
+🤖 AI Model: Llama-4 Scout with enhanced safety
+🔑 API Key: ✅ Configured
+🌐 Environment: development
+🔍 Health check requested from: 127.0.0.1
+📨 Secure chat request from: 127.0.0.1
+📝 Message length: 48
+🌡️ Temperature: 0.7
+🚀 Sending secure request to Groq API...
+✅ Groq API response received successfully
+📊 Response length: 746
+🔍 Tokens used: 249
+📨 Secure chat request from: 127.0.0.1
+📝 Message length: 68
+🌡️ Temperature: 0.7
+🚀 Sending secure request to Groq API...
+✅ Groq API response received successfully
+📊 Response length: 314
+🔍 Tokens used: 285
