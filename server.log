@@ -1,7 +1,3 @@
-
-> car-website-master@1.0.0 start
-> node server.js
-
 🛡️ SmartAI Server starting with enhanced security...
 🤖 Using Groq Llama-4 Scout integration...
 🎯 SmartAI Secure Server running on http://localhost:4000
@@ -11,16 +7,9 @@
 🌐 Environment: development
 🔍 Health check requested from: 127.0.0.1
 📨 Secure chat request from: 127.0.0.1
-📝 Message length: 48
+📝 Message length: 19
 🌡️ Temperature: 0.7
 🚀 Sending secure request to Groq API...
 ✅ Groq API response received successfully
-📊 Response length: 746
-🔍 Tokens used: 249
-📨 Secure chat request from: 127.0.0.1
-📝 Message length: 68
-🌡️ Temperature: 0.7
-🚀 Sending secure request to Groq API...
-✅ Groq API response received successfully
-📊 Response length: 314
-🔍 Tokens used: 285
+📊 Response length: 77
+🔍 Tokens used: 124
