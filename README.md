@@ -1,5 +1,3 @@
-![image](https://github.com/user-attachments/assets/2c3d2567-d0ed-4111-b06d-03d11877fa67)# 🤖 SmartAI - Advanced AI Chat Assistant
-
 [![Node.js](https://img.shields.io/badge/Node.js-16%2B-green)](https://nodejs.org/)
 [![Express](https://img.shields.io/badge/Express-5.1.0-blue)](https://expressjs.com/)
 [![Groq](https://img.shields.io/badge/AI-Groq%20Llama--4%20Scout-purple)](https://groq.com/)
@@ -9,6 +7,7 @@
 SmartAI is a sophisticated, secure chat application powered by **Groq's Llama-4 Scout** model. Built with enhanced security features, multi-language support, and a modern responsive interface, it provides an exceptional AI conversation experience.
 
 ![SmartAI Interface](https://media.licdn.com/dms/image/v2/D5616AQGgS1A3hri6JA/profile-displaybackgroundimage-shrink_350_1400/profile-displaybackgroundimage-shrink_350_1400/0/1734720311745?e=1754524800&v=beta&t=o0-K0w1YbQu4RFsveK_c954U_ZEkN8u-oqBroIOsDRo)
+[](https://github.com/user-attachments/assets/2c3d2567-d0ed-4111-b06d-03d11877fa67)# 🤖 SmartAI - Advanced AI Chat Assistant
 
 ## ✨ Features
 
