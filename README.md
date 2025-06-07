@@ -284,10 +284,10 @@ This project is licensed under the **ISC License** - see the [LICENSE](LICENSE) 
 
 ## 📞 Support
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/smartai-chat/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/smartai-chat/discussions)
-- **Email**: support@smartai-chat.com
-- **Documentation**: [Wiki](https://github.com/yourusername/smartai-chat/wiki)
+- **Issues**: [GitHub Issues](https://github.com/m7amh)
+- **Discussions**: [GitHub Discussions](https://github.com/m7amh)
+- **Email**: mohamed2291971@gmail.com.com
+- **Documentation**: [linkedin](https://www.linkedin.com/in/mohamed--abdelrahman--awad/)
 
 ---
 
