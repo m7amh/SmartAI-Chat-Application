@@ -2,14 +2,29 @@
 > car-website-master@1.0.0 start
 > node server.js
 
-🤖 SmartAI Server starting with x.ai Grok-3 integration...
+🤖 SmartAI Server starting with Groq Llama-4 Scout integration...
 🎯 SmartAI Server running on http://localhost:4000
-🤖 Using x.ai Grok-3 Latest model
+🤖 Using Groq Llama-4 Scout model
 🔑 API Key configured: Yes
-📨 Received POST /api/chat with message: مرحبا، كيف حالك؟
-🚀 Sending request to x.ai Grok API...
-❌ x.ai API Error: {
-  code: 'The caller does not have permission to execute the specified operation',
-  error: "Your newly created teams doesn't have any credits yet. You can purchase credits on https://console.x.ai/team/6835f69d-981c-4cfe-9266-5239727c61cb."
-}
-💡 Credits issue detected, providing demo response...
+🌟 Enhanced with Arabic/English support
+Health check requested
+📨 Received POST /api/chat with message: مرحبا! كيف حالك؟ أريد أن أختبر النظام الجديد
+🚀 Sending request to Groq Llama-4 Scout API...
+✅ Groq API response received successfully
+📨 Received POST /api/chat with message: Hello! Can you help me understand what you can do?
+🚀 Sending request to Groq Llama-4 Scout API...
+✅ Groq API response received successfully
+Health check requested
+📨 Received POST /api/chat with message: Hello, how are you today?
+🚀 Sending request to Groq Llama-4 Scout API...
+✅ Groq API response received successfully
+📨 Received POST /api/chat with message: مرحبا، كيف حالك اليوم؟
+🚀 Sending request to Groq Llama-4 Scout API...
+✅ Groq API response received successfully
+📨 Received POST /api/chat with message: 
+❌ Error: No message provided
+📨 Received POST /api/chat with message: undefined
+❌ Error: No message provided
+📨 Received POST /api/chat with message: Tell me a joke
+🚀 Sending request to Groq Llama-4 Scout API...
+✅ Groq API response received successfully
