@@ -1,129 +1,217 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SmartAI - مساعد ذكي</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta name="description" content="SmartAI - Advanced AI Assistant powered by Groq Llama-4 Scout" />
+  <meta name="keywords" content="AI, Chat, Assistant, Artificial Intelligence, SmartAI" />
+  <title>SmartAI - Advanced AI Assistant</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
     :root {
-      --primary-color: #007bff;
-      --secondary-color: #6c757d;
-      --success-color: #28a745;
-      --danger-color: #dc3545;
-      --warning-color: #ffc107;
-      --info-color: #17a2b8;
-      --light-color: #f8f9fa;
-      --dark-color: #343a40;
-      --bg-color: #f0f2f5;
-      --chat-bg: #ffffff;
-      --user-msg-bg: var(--primary-color);
-      --bot-msg-bg: #e9ecef;
-      --border-radius: 12px;
-      --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      --transition: all 0.3s ease;
+      /* Modern Color Palette */
+      --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --primary-color: #667eea;
+      --primary-dark: #5a67d8;
+      --secondary-color: #a0aec0;
+      --accent-color: #38b2ac;
+      --success-color: #48bb78;
+      --warning-color: #ed8936;
+      --danger-color: #f56565;
+      --info-color: #4299e1;
+      
+      /* Neutral Colors */
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-400: #9ca3af;
+      --gray-500: #6b7280;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --gray-900: #111827;
+      
+      /* Theme Variables */
+      --bg-primary: #ffffff;
+      --bg-secondary: var(--gray-50);
+      --bg-tertiary: var(--gray-100);
+      --text-primary: var(--gray-900);
+      --text-secondary: var(--gray-600);
+      --text-tertiary: var(--gray-400);
+      --border-color: var(--gray-200);
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      
+      /* Animation */
+      --transition-fast: all 0.15s ease;
+      --transition-normal: all 0.3s ease;
+      --transition-slow: all 0.5s ease;
+      --border-radius-sm: 0.375rem;
+      --border-radius-md: 0.5rem;
+      --border-radius-lg: 0.75rem;
+      --border-radius-xl: 1rem;
     }
 
+    /* Dark Theme */
     [data-theme="dark"] {
-      --bg-color: #1a1a1a;
-      --chat-bg: #2d2d2d;
-      --light-color: #3d3d3d;
-      --dark-color: #ffffff;
-      --bot-msg-bg: #404040;
-      --border-color: #555;
+      --bg-primary: var(--gray-900);
+      --bg-secondary: var(--gray-800);
+      --bg-tertiary: var(--gray-700);
+      --text-primary: var(--gray-50);
+      --text-secondary: var(--gray-300);
+      --text-tertiary: var(--gray-400);
+      --border-color: var(--gray-600);
     }
 
+    /* Blue Theme */
     [data-theme="blue"] {
-      --primary-color: #1e3a8a;
-      --user-msg-bg: #1e3a8a;
-      --bg-color: #dbeafe;
+      --primary-gradient: linear-gradient(135deg, #3182ce 0%, #2c5282 100%);
+      --primary-color: #3182ce;
+      --primary-dark: #2c5282;
     }
 
+    /* Green Theme */
     [data-theme="green"] {
-      --primary-color: #059669;
-      --user-msg-bg: #059669;
-      --bg-color: #d1fae5;
+      --primary-gradient: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
+      --primary-color: #38a169;
+      --primary-dark: #2f855a;
     }
 
+    /* Purple Theme */
     [data-theme="purple"] {
-      --primary-color: #7c3aed;
-      --user-msg-bg: #7c3aed;
-      --bg-color: #ede9fe;
+      --primary-gradient: linear-gradient(135deg, #805ad5 0%, #6b46c1 100%);
+      --primary-color: #805ad5;
+      --primary-dark: #6b46c1;
     }
 
+    /* Base Styles */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Cairo', sans-serif;
     }
 
     body {
-      background: var(--bg-color);
-      color: var(--dark-color);
-      transition: var(--transition);
-      min-height: 100vh;
-      padding: 10px;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      transition: var(--transition-normal);
+      overflow-x: hidden;
     }
 
+    /* RTL Support */
+    [dir="rtl"] body {
+      font-family: 'Cairo', 'Inter', sans-serif;
+    }
+
+    /* App Container */
     .app-container {
-      max-width: 800px;
-      margin: 0 auto;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      height: calc(100vh - 20px);
-      background: var(--chat-bg);
-      border-radius: var(--border-radius);
-      box-shadow: var(--shadow);
+      max-width: 1200px;
+      margin: 0 auto;
+      background: var(--bg-primary);
+      box-shadow: var(--shadow-xl);
+    }
+
+    /* Header */
+    .header {
+      background: var(--primary-gradient);
+      color: white;
+      padding: 1.5rem 2rem;
+      position: relative;
       overflow: hidden;
     }
 
-    .header {
-      background: linear-gradient(135deg, var(--primary-color), var(--primary-color)dd);
-      color: white;
-      padding: 20px;
-      text-align: center;
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+      pointer-events: none;
+    }
+
+    .header-content {
       position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-section {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
     }
 
     .logo {
-      font-size: 24px;
+      font-size: 2rem;
       font-weight: 700;
-      margin-bottom: 5px;
+      margin-bottom: 0.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: var(--border-radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
     }
 
     .model-info {
-      font-size: 12px;
+      font-size: 0.875rem;
       opacity: 0.9;
+      font-weight: 400;
     }
 
-    .settings-btn {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      background: rgba(255,255,255,0.2);
-      border: none;
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .header-btn {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       color: white;
-      padding: 8px 12px;
-      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      border-radius: var(--border-radius-md);
       cursor: pointer;
-      transition: var(--transition);
+      transition: var(--transition-fast);
+      font-size: 0.875rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      backdrop-filter: blur(10px);
     }
 
-    .settings-btn:hover {
-      background: rgba(255,255,255,0.3);
+    .header-btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-1px);
     }
 
     .status-indicator {
-      position: absolute;
-      top: 20px;
-      right: 20px;
       display: flex;
       align-items: center;
-      gap: 8px;
-      font-size: 12px;
+      gap: 0.5rem;
+      font-size: 0.875rem;
     }
 
     .status-dot {
@@ -135,29 +223,30 @@
     }
 
     @keyframes pulse {
-      0% { opacity: 1; }
-      50% { opacity: 0.5; }
-      100% { opacity: 1; }
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.1); }
     }
 
+    /* Main Chat Area */
     .chat-container {
       flex: 1;
       display: flex;
       flex-direction: column;
-      overflow: hidden;
+      min-height: 0;
     }
 
     .chat-box {
       flex: 1;
       overflow-y: auto;
-      padding: 20px;
-      background: var(--light-color);
-      scrollbar-width: thin;
-      scrollbar-color: var(--primary-color) transparent;
+      padding: 2rem;
+      background: var(--bg-secondary);
+      background-image: 
+        radial-gradient(circle at 20% 20%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(56, 178, 172, 0.1) 0%, transparent 50%);
     }
 
     .chat-box::-webkit-scrollbar {
-      width: 6px;
+      width: 8px;
     }
 
     .chat-box::-webkit-scrollbar-track {
@@ -165,18 +254,18 @@
     }
 
     .chat-box::-webkit-scrollbar-thumb {
-      background: var(--primary-color);
-      border-radius: 3px;
+      background: var(--gray-300);
+      border-radius: 4px;
     }
 
+    .chat-box::-webkit-scrollbar-thumb:hover {
+      background: var(--gray-400);
+    }
+
+    /* Messages */
     .message {
-      margin: 15px 0;
-      padding: 15px 20px;
-      border-radius: var(--border-radius);
-      position: relative;
-      max-width: 80%;
-      animation: messageSlide 0.3s ease-out;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 1.5rem;
+      animation: messageSlide 0.4s ease-out;
     }
 
     @keyframes messageSlide {
@@ -190,69 +279,164 @@
       }
     }
 
-    .user {
-      background: var(--user-msg-bg);
-      color: white;
-      margin-left: auto;
-      margin-right: 0;
-      border-bottom-right-radius: 4px;
+    .message-wrapper {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      max-width: 85%;
     }
 
-    .bot {
-      background: var(--bot-msg-bg);
-      color: var(--dark-color);
-      margin-right: auto;
-      margin-left: 0;
-      border-bottom-left-radius: 4px;
+    .user .message-wrapper {
+      margin-left: auto;
+      flex-direction: row-reverse;
+    }
+
+    .message-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .user .message-avatar {
+      background: var(--primary-gradient);
+      color: white;
+    }
+
+    .bot .message-avatar {
+      background: var(--bg-tertiary);
+      color: var(--text-secondary);
+      border: 2px solid var(--border-color);
+    }
+
+    .message-content-wrapper {
+      flex: 1;
+      position: relative;
     }
 
     .message-content {
-      line-height: 1.6;
+      background: var(--bg-primary);
+      padding: 1rem 1.25rem;
+      border-radius: var(--border-radius-lg);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-color);
+      position: relative;
       word-wrap: break-word;
+      line-height: 1.6;
     }
 
-    .timestamp {
-      font-size: 11px;
-      opacity: 0.7;
-      margin-top: 8px;
+    .user .message-content {
+      background: var(--primary-gradient);
+      color: white;
+      border: none;
+    }
+
+    .message-content::before {
+      content: '';
+      position: absolute;
+      top: 12px;
+      width: 0;
+      height: 0;
+      border: 8px solid transparent;
+    }
+
+    .bot .message-content::before {
+      left: -16px;
+      border-right-color: var(--bg-primary);
+    }
+
+    .user .message-content::before {
+      right: -16px;
+      border-left-color: var(--primary-color);
+    }
+
+    .message-meta {
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--text-tertiary);
+    }
+
+    .user .message-meta {
+      justify-content: flex-end;
     }
 
     .copy-btn {
       position: absolute;
-      top: 8px;
-      right: 8px;
-      background: rgba(0,0,0,0.1);
+      top: 0.5rem;
+      right: 0.5rem;
+      background: rgba(0, 0, 0, 0.1);
       border: none;
-      padding: 5px 8px;
-      border-radius: 6px;
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--border-radius-sm);
       cursor: pointer;
-      font-size: 12px;
-      transition: var(--transition);
+      font-size: 0.75rem;
+      transition: var(--transition-fast);
       opacity: 0;
+      color: inherit;
     }
 
-    .message:hover .copy-btn {
+    .message-content-wrapper:hover .copy-btn {
       opacity: 1;
     }
 
     .copy-btn:hover {
-      background: rgba(0,0,0,0.2);
+      background: rgba(0, 0, 0, 0.2);
     }
 
+    /* Loading Animation */
+    .loading {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.5rem;
+      color: var(--text-secondary);
+      font-style: italic;
+    }
+
+    .loading-dots {
+      display: flex;
+      gap: 0.25rem;
+    }
+
+    .loading-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--primary-color);
+      animation: loadingBounce 1.4s infinite ease-in-out both;
+    }
+
+    .loading-dot:nth-child(1) { animation-delay: -0.32s; }
+    .loading-dot:nth-child(2) { animation-delay: -0.16s; }
+
+    @keyframes loadingBounce {
+      0%, 80%, 100% {
+        transform: scale(0);
+      }
+      40% {
+        transform: scale(1);
+      }
+    }
+
+    /* Input Section */
     .input-section {
-      background: var(--chat-bg);
-      padding: 20px;
-      border-top: 1px solid var(--light-color);
+      background: var(--bg-primary);
+      border-top: 1px solid var(--border-color);
+      padding: 1.5rem 2rem;
     }
 
     .input-container {
       display: flex;
-      gap: 10px;
+      gap: 1rem;
       align-items: flex-end;
-      margin-bottom: 15px;
+      margin-bottom: 1rem;
     }
 
     .input-wrapper {
@@ -260,295 +444,335 @@
       position: relative;
     }
 
-    #user-input {
+    .input-field {
       width: 100%;
-      padding: 15px 50px 15px 15px;
-      border: 2px solid var(--light-color);
-      border-radius: var(--border-radius);
-      outline: none;
-      font-size: 16px;
-      font-family: 'Cairo', sans-serif;
+      padding: 1rem 3.5rem 1rem 1rem;
+      border: 2px solid var(--border-color);
+      border-radius: var(--border-radius-lg);
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      font-size: 1rem;
+      font-family: inherit;
       resize: none;
-      min-height: 50px;
-      max-height: 120px;
-      transition: var(--transition);
-      background: var(--light-color);
-      color: var(--dark-color);
+      min-height: 52px;
+      max-height: 150px;
+      transition: var(--transition-fast);
+      line-height: 1.5;
     }
 
-    #user-input:focus {
+    .input-field:focus {
+      outline: none;
       border-color: var(--primary-color);
-      box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      background: var(--bg-primary);
+    }
+
+    .input-field::placeholder {
+      color: var(--text-tertiary);
     }
 
     .voice-btn {
       position: absolute;
-      right: 10px;
+      right: 0.75rem;
       top: 50%;
       transform: translateY(-50%);
-      background: none;
-      border: none;
-      color: var(--secondary-color);
-      font-size: 18px;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      width: 36px;
+      height: 36px;
+      border-radius: var(--border-radius-md);
       cursor: pointer;
-      padding: 8px;
-      border-radius: 6px;
-      transition: var(--transition);
+      transition: var(--transition-fast);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .voice-btn:hover {
-      color: var(--primary-color);
-      background: rgba(0,123,255,0.1);
+      background: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
     }
 
     .voice-btn.recording {
-      color: var(--danger-color);
+      background: var(--danger-color);
+      color: white;
+      border-color: var(--danger-color);
       animation: pulse 1s infinite;
     }
 
+    .voice-btn.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
     .send-btn {
-      background: var(--primary-color);
+      background: var(--primary-gradient);
       color: white;
       border: none;
-      padding: 15px 25px;
-      border-radius: var(--border-radius);
+      padding: 0.875rem 1.5rem;
+      border-radius: var(--border-radius-lg);
       cursor: pointer;
-      font-size: 16px;
+      font-size: 1rem;
       font-weight: 600;
-      transition: var(--transition);
+      transition: var(--transition-fast);
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 0.5rem;
+      box-shadow: var(--shadow-md);
+      min-height: 52px;
     }
 
     .send-btn:hover:not(:disabled) {
-      background: var(--primary-color)dd;
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,123,255,0.3);
+      box-shadow: var(--shadow-lg);
     }
 
     .send-btn:disabled {
       opacity: 0.6;
       cursor: not-allowed;
+      transform: none;
     }
 
+    /* Controls */
     .controls {
       display: flex;
-      gap: 10px;
+      gap: 0.75rem;
       flex-wrap: wrap;
       justify-content: space-between;
+      align-items: center;
+    }
+
+    .control-group {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
     }
 
     .control-btn {
-      background: var(--light-color);
-      border: 1px solid var(--secondary-color);
-      color: var(--dark-color);
-      padding: 8px 15px;
-      border-radius: 8px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      padding: 0.5rem 1rem;
+      border-radius: var(--border-radius-md);
       cursor: pointer;
-      font-size: 14px;
-      transition: var(--transition);
+      font-size: 0.875rem;
+      transition: var(--transition-fast);
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 0.5rem;
     }
 
     .control-btn:hover {
-      background: var(--secondary-color);
+      background: var(--primary-color);
       color: white;
+      border-color: var(--primary-color);
     }
 
-    .loading {
-      text-align: center;
-      color: var(--secondary-color);
-      font-style: italic;
-      padding: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
+    .control-btn.active {
+      background: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
     }
 
-    .loading::before {
-      content: '';
-      width: 20px;
-      height: 20px;
-      border: 2px solid var(--light-color);
-      border-top: 2px solid var(--primary-color);
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .settings-modal {
+    /* Settings Modal */
+    .modal-overlay {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0,0,0,0.5);
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(8px);
       display: none;
       justify-content: center;
       align-items: center;
       z-index: 1000;
+      padding: 1rem;
     }
 
-    .settings-content {
-      background: var(--chat-bg);
-      padding: 30px;
-      border-radius: var(--border-radius);
+    .modal-content {
+      background: var(--bg-primary);
+      border-radius: var(--border-radius-xl);
+      box-shadow: var(--shadow-xl);
       max-width: 500px;
-      width: 90%;
-      max-height: 80vh;
+      width: 100%;
+      max-height: 90vh;
       overflow-y: auto;
-      color: var(--dark-color);
+      position: relative;
+    }
+
+    .modal-header {
+      padding: 1.5rem 2rem 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .modal-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      width: 32px;
+      height: 32px;
+      border-radius: var(--border-radius-md);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition-fast);
+    }
+
+    .modal-close:hover {
+      background: var(--danger-color);
+      color: white;
+      border-color: var(--danger-color);
+    }
+
+    .modal-body {
+      padding: 1.5rem 2rem 2rem;
     }
 
     .setting-group {
-      margin-bottom: 25px;
+      margin-bottom: 1.5rem;
     }
 
     .setting-label {
       display: block;
-      font-weight: 600;
-      margin-bottom: 8px;
-      color: var(--dark-color);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+      font-size: 0.875rem;
     }
 
     .setting-input {
       width: 100%;
-      padding: 10px;
-      border: 1px solid var(--light-color);
-      border-radius: 8px;
-      font-family: 'Cairo', sans-serif;
-      background: var(--light-color);
-      color: var(--dark-color);
+      padding: 0.75rem;
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius-md);
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 0.875rem;
+      transition: var(--transition-fast);
     }
 
-    .theme-selector {
+    .setting-input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .theme-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-      gap: 10px;
-      margin-top: 10px;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 0.75rem;
+      margin-top: 0.5rem;
     }
 
     .theme-option {
-      padding: 15px 10px;
-      border: 2px solid var(--light-color);
-      border-radius: 8px;
+      padding: 1rem;
+      border: 2px solid var(--border-color);
+      border-radius: var(--border-radius-md);
       cursor: pointer;
       text-align: center;
-      font-size: 12px;
-      transition: var(--transition);
+      transition: var(--transition-fast);
+      background: var(--bg-secondary);
+    }
+
+    .theme-option:hover {
+      border-color: var(--primary-color);
     }
 
     .theme-option.active {
       border-color: var(--primary-color);
-      background: rgba(0,123,255,0.1);
+      background: rgba(102, 126, 234, 0.1);
     }
 
-    .save-settings-btn {
+    .theme-preview {
+      width: 100%;
+      height: 24px;
+      border-radius: var(--border-radius-sm);
+      margin-bottom: 0.5rem;
+    }
+
+    .theme-name {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .checkbox {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--primary-color);
+    }
+
+    .save-btn {
       background: var(--success-color);
       color: white;
       border: none;
-      padding: 12px 25px;
-      border-radius: 8px;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--border-radius-md);
       cursor: pointer;
       font-weight: 600;
       width: 100%;
-      margin-top: 20px;
+      margin-top: 1rem;
+      transition: var(--transition-fast);
     }
 
-    .close-settings {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      background: none;
-      border: none;
-      font-size: 24px;
-      cursor: pointer;
-      color: var(--secondary-color);
+    .save-btn:hover {
+      background: #38a169;
+      transform: translateY(-1px);
     }
 
-    /* Mobile Responsive */
+    /* Responsive Design */
     @media (max-width: 768px) {
-      body {
-        padding: 5px;
-      }
-
-      .app-container {
-        height: calc(100vh - 10px);
-        border-radius: 0;
-      }
-
       .header {
-        padding: 15px;
+        padding: 1rem;
+      }
+
+      .header-content {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
       }
 
       .logo {
-        font-size: 20px;
-      }
-
-      .settings-btn {
-        top: 15px;
-        left: 15px;
-        padding: 6px 10px;
-      }
-
-      .status-indicator {
-        top: 15px;
-        right: 15px;
+        font-size: 1.5rem;
       }
 
       .chat-box {
-        padding: 15px;
+        padding: 1rem;
       }
 
-      .message {
-        max-width: 90%;
-        padding: 12px 15px;
+      .message-wrapper {
+        max-width: 95%;
       }
 
       .input-section {
-        padding: 15px;
-      }
-
-      #user-input {
-        font-size: 16px;
-        padding: 12px 40px 12px 12px;
-      }
-
-      .send-btn {
-        padding: 12px 20px;
-      }
-
-      .controls {
-        gap: 8px;
-      }
-
-      .control-btn {
-        padding: 6px 12px;
-        font-size: 12px;
-      }
-
-      .settings-content {
-        padding: 20px;
-        margin: 20px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .message {
-        max-width: 95%;
+        padding: 1rem;
       }
 
       .input-container {
         flex-direction: column;
-        gap: 10px;
+        gap: 0.75rem;
       }
 
       .send-btn {
@@ -557,143 +781,245 @@
       }
 
       .controls {
-        justify-content: center;
+        flex-direction: column;
+        gap: 0.75rem;
       }
+
+      .control-group {
+        justify-content: center;
+        width: 100%;
+      }
+
+      .modal-content {
+        margin: 1rem;
+        max-height: calc(100vh - 2rem);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header {
+        padding: 0.75rem;
+      }
+
+      .chat-box {
+        padding: 0.75rem;
+      }
+
+      .input-section {
+        padding: 0.75rem;
+      }
+
+      .modal-header,
+      .modal-body {
+        padding: 1rem;
+      }
+    }
+
+    /* Security Indicator */
+    .security-badge {
+      position: fixed;
+      bottom: 1rem;
+      left: 1rem;
+      background: var(--success-color);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: var(--border-radius-lg);
+      font-size: 0.75rem;
+      font-weight: 500;
+      box-shadow: var(--shadow-md);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* Focus indicators */
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible {
+      outline: 2px solid var(--primary-color);
+      outline-offset: 2px;
     }
   </style>
 </head>
 <body data-theme="light">
   <div class="app-container">
     <!-- Header -->
-    <div class="header">
-      <button class="settings-btn" onclick="openSettings()">
-        <i class="fas fa-cog"></i>
-      </button>
-      <div class="status-indicator">
-        <div class="status-dot"></div>
-        <span>متصل</span>
-      </div>
-      <div class="logo">
-        🤖 <span>SmartAI</span>
-      </div>
-      <div class="model-info">مدعوم بـ Groq Llama-4 Scout</div>
-    </div>
-
-    <!-- Chat Container -->
-    <div class="chat-container">
-      <div class="chat-box" id="chat-box">
-        <div class="message bot">
-          <div class="message-content">
-            مرحباً! أنا SmartAI، مساعدك الذكي المدعوم بنموذج Llama-4 Scout. 
-            يمكنني مساعدتك في الأسئلة والمحادثات باللغتين العربية والإنجليزية.
-            جرب الميزات الجديدة مثل الأوامر الصوتية والثيمات المختلفة! 🎤🎨
+    <header class="header">
+      <div class="header-content">
+        <div class="logo-section">
+          <div class="logo">
+            <div class="logo-icon">🤖</div>
+            <span>SmartAI</span>
           </div>
-          <div class="timestamp">
-            <i class="fas fa-robot"></i>
-            <span>الآن</span>
-          </div>
+          <div class="model-info">Powered by Groq Llama-4 Scout • Enhanced Security</div>
         </div>
+        
+        <div class="header-controls">
+          <div class="status-indicator">
+            <div class="status-dot"></div>
+            <span>Online</span>
+          </div>
+          <button class="header-btn" onclick="openSettings()" title="Settings (Ctrl+,)">
+            <i class="fas fa-cog"></i>
+            Settings
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Chat Container -->
+    <main class="chat-container">
+      <div class="chat-box" id="chat-box" role="log" aria-live="polite" aria-label="Chat messages">
+        <!-- Messages will be inserted here -->
       </div>
 
       <!-- Input Section -->
-      <div class="input-section">
+      <section class="input-section">
         <div class="input-container">
           <div class="input-wrapper">
             <textarea 
               id="user-input" 
-              placeholder="اكتب رسالتك هنا... (اضغط Enter للإرسال)"
+              class="input-field"
+              placeholder="Type your message here... (Press Enter to send, Shift+Enter for new line)"
               onkeydown="handleKey(event)"
               rows="1"
+              maxlength="2000"
+              aria-label="Message input"
             ></textarea>
-            <button class="voice-btn" onclick="toggleVoiceRecording()" title="تسجيل صوتي">
+            <button 
+              class="voice-btn" 
+              id="voice-btn"
+              onclick="toggleVoiceRecording()" 
+              title="Voice input (Alt+M)"
+              aria-label="Voice recording"
+            >
               <i class="fas fa-microphone" id="voice-icon"></i>
             </button>
           </div>
-          <button class="send-btn" onclick="sendMessage()" id="send-btn">
+          <button 
+            class="send-btn" 
+            id="send-btn"
+            onclick="sendMessage()" 
+            aria-label="Send message"
+          >
             <i class="fas fa-paper-plane"></i>
-            <span>إرسال</span>
+            <span>Send</span>
           </button>
         </div>
 
         <div class="controls">
-          <button class="control-btn" onclick="clearChat()">
-            <i class="fas fa-trash"></i>
-            مسح المحادثة
-          </button>
-          <button class="control-btn" onclick="exportChat()">
-            <i class="fas fa-download"></i>
-            تصدير
-          </button>
-          <button class="control-btn" onclick="resetSending()">
-            <i class="fas fa-refresh"></i>
-            إعادة تعيين
-          </button>
-          <button class="control-btn" onclick="toggleDirection()">
-            <i class="fas fa-exchange-alt"></i>
-            <span id="dir-text">English</span>
-          </button>
+          <div class="control-group">
+            <button class="control-btn" onclick="clearChat()" title="Clear chat (Ctrl+K)">
+              <i class="fas fa-trash"></i>
+              Clear Chat
+            </button>
+            <button class="control-btn" onclick="exportChat()">
+              <i class="fas fa-download"></i>
+              Export
+            </button>
+            <button class="control-btn" onclick="resetSending()">
+              <i class="fas fa-refresh"></i>
+              Reset
+            </button>
+          </div>
+          <div class="control-group">
+            <button class="control-btn" onclick="toggleDirection()" id="direction-toggle">
+              <i class="fas fa-language"></i>
+              <span id="direction-text">العربية</span>
+            </button>
+          </div>
         </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Settings Modal -->
+  <div class="modal-overlay" id="settings-modal" role="dialog" aria-labelledby="settings-title" aria-hidden="true">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="settings-title">⚙️ Settings</h2>
+        <button class="modal-close" onclick="closeSettings()" aria-label="Close settings">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+        <div class="setting-group">
+          <label class="setting-label" for="theme-selector">🎨 Choose Theme:</label>
+          <div class="theme-grid">
+            <div class="theme-option active" data-theme="light">
+              <div class="theme-preview" style="background: linear-gradient(135deg, #f9fafb 0%, #e5e7eb 100%);"></div>
+              <div class="theme-name">Light</div>
+            </div>
+            <div class="theme-option" data-theme="dark">
+              <div class="theme-preview" style="background: linear-gradient(135deg, #1f2937 0%, #111827 100%);"></div>
+              <div class="theme-name">Dark</div>
+            </div>
+            <div class="theme-option" data-theme="blue">
+              <div class="theme-preview" style="background: linear-gradient(135deg, #3182ce 0%, #2c5282 100%);"></div>
+              <div class="theme-name">Blue</div>
+            </div>
+            <div class="theme-option" data-theme="green">
+              <div class="theme-preview" style="background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);"></div>
+              <div class="theme-name">Green</div>
+            </div>
+            <div class="theme-option" data-theme="purple">
+              <div class="theme-preview" style="background: linear-gradient(135deg, #805ad5 0%, #6b46c1 100%);"></div>
+              <div class="theme-name">Purple</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="setting-group">
+          <label class="setting-label" for="assistant-name">🤖 Assistant Name:</label>
+          <input type="text" class="setting-input" id="assistant-name" value="SmartAI" maxlength="20" />
+        </div>
+
+        <div class="setting-group">
+          <label class="setting-label" for="temperature">🌡️ Creativity Level (0-1):</label>
+          <input type="range" class="setting-input" id="temperature" min="0" max="1" step="0.1" value="0.7" />
+          <div style="font-size: 0.75rem; color: var(--text-tertiary); margin-top: 0.25rem;">
+            Lower = More precise, Higher = More creative
+          </div>
+        </div>
+
+        <div class="setting-group">
+          <label class="setting-label">🔊 Audio Settings:</label>
+          <div class="checkbox-group">
+            <input type="checkbox" class="checkbox" id="sound-enabled" checked />
+            <label for="sound-enabled">Enable notification sounds</label>
+          </div>
+        </div>
+
+        <div class="setting-group">
+          <label class="setting-label">🎤 Voice Settings:</label>
+          <div class="checkbox-group">
+            <input type="checkbox" class="checkbox" id="voice-enabled" checked />
+            <label for="voice-enabled">Enable voice recognition</label>
+          </div>
+        </div>
+
+        <button class="save-btn" onclick="saveSettings()">
+          <i class="fas fa-save"></i> Save Settings
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- Settings Modal -->
-  <div class="settings-modal" id="settings-modal">
-    <div class="settings-content">
-      <button class="close-settings" onclick="closeSettings()">×</button>
-      <h3 style="margin-bottom: 20px;">⚙️ إعدادات التطبيق</h3>
-
-      <div class="setting-group">
-        <label class="setting-label">🎨 اختر الثيم:</label>
-        <div class="theme-selector">
-          <div class="theme-option active" data-theme="light">
-            <div style="background: #f8f9fa; height: 20px; border-radius: 4px; margin-bottom: 5px;"></div>
-            فاتح
-          </div>
-          <div class="theme-option" data-theme="dark">
-            <div style="background: #2d2d2d; height: 20px; border-radius: 4px; margin-bottom: 5px;"></div>
-            داكن
-          </div>
-          <div class="theme-option" data-theme="blue">
-            <div style="background: #1e3a8a; height: 20px; border-radius: 4px; margin-bottom: 5px;"></div>
-            أزرق
-          </div>
-          <div class="theme-option" data-theme="green">
-            <div style="background: #059669; height: 20px; border-radius: 4px; margin-bottom: 5px;"></div>
-            أخضر
-          </div>
-          <div class="theme-option" data-theme="purple">
-            <div style="background: #7c3aed; height: 20px; border-radius: 4px; margin-bottom: 5px;"></div>
-            بنفسجي
-          </div>
-        </div>
-      </div>
-
-      <div class="setting-group">
-        <label class="setting-label" for="assistant-name">🤖 اسم المساعد:</label>
-        <input type="text" class="setting-input" id="assistant-name" value="SmartAI" />
-      </div>
-
-      <div class="setting-group">
-        <label class="setting-label" for="temperature">🌡️ مستوى الإبداع (0-1):</label>
-        <input type="range" class="setting-input" id="temperature" min="0" max="1" step="0.1" value="0.7" />
-        <small style="color: var(--secondary-color);">منخفض = أكثر دقة، عالي = أكثر إبداعاً</small>
-      </div>
-
-      <div class="setting-group">
-        <label class="setting-label">🔊 تفعيل الأصوات:</label>
-        <input type="checkbox" id="sound-enabled" checked /> تشغيل أصوات التنبيهات
-      </div>
-
-      <div class="setting-group">
-        <label class="setting-label">🎤 تفعيل الأوامر الصوتية:</label>
-        <input type="checkbox" id="voice-enabled" checked /> تشغيل التعرف على الكلام
-      </div>
-
-      <button class="save-settings-btn" onclick="saveSettings()">
-        <i class="fas fa-save"></i> حفظ الإعدادات
-      </button>
-    </div>
+  <!-- Security Badge -->
+  <div class="security-badge">
+    <i class="fas fa-shield-alt"></i>
+    <span>Secured</span>
   </div>
 
   <!-- Audio Elements -->
@@ -707,7 +1033,7 @@
     const userInput = document.getElementById("user-input");
     const notifySound = document.getElementById("notify-sound");
     const sendBtn = document.getElementById("send-btn");
-    const voiceBtn = document.querySelector(".voice-btn");
+    const voiceBtn = document.getElementById("voice-btn");
     const voiceIcon = document.getElementById("voice-icon");
     
     let isSending = false;
@@ -721,6 +1047,24 @@
       voiceEnabled: true
     };
 
+    // Security: Input sanitization
+    function sanitizeInput(input) {
+      if (typeof input !== 'string') return '';
+      
+      return input
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#x27;')
+        .replace(/\//g, '&#x2F;')
+        .trim();
+    }
+
+    // Security: Validate input length
+    function validateInput(input) {
+      return input && input.length > 0 && input.length <= 2000;
+    }
+
     // Initialize App
     document.addEventListener('DOMContentLoaded', function() {
       loadSettings();
@@ -728,18 +1072,26 @@
       initSpeechRecognition();
       setupTextareaAutoResize();
       userInput.focus();
+      
+      // Add welcome message
+      setTimeout(() => {
+        appendMessage("bot", "👋 Hello! I'm SmartAI, your advanced AI assistant powered by Llama-4 Scout. I can help you with questions, conversations, and tasks in both English and Arabic. Try the new voice features and customizable themes! 🎤🎨", new Date().toLocaleTimeString());
+      }, 500);
     });
 
-    // Load Settings
+    // Load and Apply Settings
     function loadSettings() {
-      const saved = localStorage.getItem('smartai-settings');
-      if (saved) {
-        currentSettings = { ...currentSettings, ...JSON.parse(saved) };
+      try {
+        const saved = localStorage.getItem('smartai-settings');
+        if (saved) {
+          currentSettings = { ...currentSettings, ...JSON.parse(saved) };
+        }
+      } catch (e) {
+        console.warn('Failed to load settings:', e);
       }
       applySettings();
     }
 
-    // Apply Settings
     function applySettings() {
       document.body.setAttribute('data-theme', currentSettings.theme);
       document.getElementById('assistant-name').value = currentSettings.assistantName;
@@ -753,19 +1105,23 @@
       });
     }
 
-    // Save Settings
     function saveSettings() {
-      currentSettings.theme = document.querySelector('.theme-option.active').dataset.theme;
-      currentSettings.assistantName = document.getElementById('assistant-name').value;
-      currentSettings.temperature = parseFloat(document.getElementById('temperature').value);
-      currentSettings.soundEnabled = document.getElementById('sound-enabled').checked;
-      currentSettings.voiceEnabled = document.getElementById('voice-enabled').checked;
-      
-      localStorage.setItem('smartai-settings', JSON.stringify(currentSettings));
-      applySettings();
-      closeSettings();
-      
-      appendMessage("bot", "✅ تم حفظ الإعدادات بنجاح!");
+      try {
+        currentSettings.theme = document.querySelector('.theme-option.active').dataset.theme;
+        currentSettings.assistantName = sanitizeInput(document.getElementById('assistant-name').value) || 'SmartAI';
+        currentSettings.temperature = parseFloat(document.getElementById('temperature').value) || 0.7;
+        currentSettings.soundEnabled = document.getElementById('sound-enabled').checked;
+        currentSettings.voiceEnabled = document.getElementById('voice-enabled').checked;
+        
+        localStorage.setItem('smartai-settings', JSON.stringify(currentSettings));
+        applySettings();
+        closeSettings();
+        
+        appendMessage("bot", "✅ Settings saved successfully!", new Date().toLocaleTimeString());
+      } catch (e) {
+        console.error('Failed to save settings:', e);
+        appendMessage("bot", "❌ Failed to save settings. Please try again.", new Date().toLocaleTimeString());
+      }
     }
 
     // Theme Selection
@@ -776,70 +1132,148 @@
       }
     });
 
-    // Settings Modal
+    // Modal Functions
     function openSettings() {
-      document.getElementById('settings-modal').style.display = 'flex';
+      const modal = document.getElementById('settings-modal');
+      modal.style.display = 'flex';
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
     }
 
     function closeSettings() {
-      document.getElementById('settings-modal').style.display = 'none';
+      const modal = document.getElementById('settings-modal');
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = 'auto';
     }
 
-    // Speech Recognition
+    // Enhanced Speech Recognition
     function initSpeechRecognition() {
-      if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        recognition = new SpeechRecognition();
-        recognition.continuous = false;
-        recognition.interimResults = false;
-        recognition.lang = 'ar-SA';
+      try {
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+          const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+          recognition = new SpeechRecognition();
+          
+          recognition.continuous = false;
+          recognition.interimResults = false;
+          recognition.lang = document.documentElement.lang === 'ar' ? 'ar-SA' : 'en-US';
+          recognition.maxAlternatives = 1;
 
-        recognition.onstart = function() {
-          isRecording = true;
-          voiceIcon.className = 'fas fa-stop';
-          voiceBtn.classList.add('recording');
-          voiceBtn.title = 'إيقاف التسجيل';
-        };
+          recognition.onstart = function() {
+            console.log('🎤 Speech recognition started');
+            isRecording = true;
+            voiceIcon.className = 'fas fa-stop';
+            voiceBtn.classList.add('recording');
+            voiceBtn.title = 'Stop recording';
+            voiceBtn.setAttribute('aria-label', 'Stop voice recording');
+          };
 
-        recognition.onresult = function(event) {
-          const transcript = event.results[0][0].transcript;
-          userInput.value = transcript;
-          userInput.focus();
-        };
+          recognition.onresult = function(event) {
+            try {
+              const transcript = event.results[0][0].transcript;
+              console.log('🎤 Speech recognized:', transcript);
+              
+              if (transcript && transcript.trim()) {
+                userInput.value = sanitizeInput(transcript.trim());
+                userInput.focus();
+                userInput.dispatchEvent(new Event('input')); // Trigger auto-resize
+              }
+            } catch (e) {
+              console.error('Speech recognition result error:', e);
+              showVoiceError("Failed to process speech input.");
+            }
+          };
 
-        recognition.onend = function() {
-          isRecording = false;
-          voiceIcon.className = 'fas fa-microphone';
-          voiceBtn.classList.remove('recording');
-          voiceBtn.title = 'تسجيل صوتي';
-        };
+          recognition.onend = function() {
+            console.log('🎤 Speech recognition ended');
+            isRecording = false;
+            voiceIcon.className = 'fas fa-microphone';
+            voiceBtn.classList.remove('recording');
+            voiceBtn.title = 'Voice input (Alt+M)';
+            voiceBtn.setAttribute('aria-label', 'Voice recording');
+          };
 
-        recognition.onerror = function(event) {
-          console.error('Speech recognition error:', event.error);
-          appendMessage("bot", "❌ خطأ في التعرف على الكلام. تأكد من السماح بالوصول للميكروفون.");
-        };
-      } else {
-        voiceBtn.style.display = 'none';
-        console.log('Speech recognition not supported');
+          recognition.onerror = function(event) {
+            console.error('🎤 Speech recognition error:', event.error);
+            isRecording = false;
+            voiceIcon.className = 'fas fa-microphone';
+            voiceBtn.classList.remove('recording');
+            
+            let errorMessage = "Voice recognition error. ";
+            switch (event.error) {
+              case 'no-speech':
+                errorMessage += "No speech was detected. Please try again.";
+                break;
+              case 'audio-capture':
+                errorMessage += "No microphone was found. Please check your microphone settings.";
+                break;
+              case 'not-allowed':
+                errorMessage += "Microphone access denied. Please allow microphone access and try again.";
+                break;
+              case 'network':
+                errorMessage += "Network error occurred. Please check your internet connection.";
+                break;
+              case 'aborted':
+                errorMessage += "Recording was aborted.";
+                break;
+              default:
+                errorMessage += "Please check your microphone permissions and try again.";
+            }
+            
+            showVoiceError(errorMessage);
+          };
+          
+          console.log('🎤 Speech recognition initialized successfully');
+        } else {
+          console.log('🎤 Speech recognition not supported');
+          voiceBtn.classList.add('disabled');
+          voiceBtn.title = 'Voice recognition not supported in this browser';
+        }
+      } catch (e) {
+        console.error('🎤 Failed to initialize speech recognition:', e);
+        voiceBtn.classList.add('disabled');
+        voiceBtn.title = 'Voice recognition unavailable';
       }
     }
 
-    // Toggle Voice Recording
-    function toggleVoiceRecording() {
+    function showVoiceError(message) {
+      appendMessage("bot", `🎤 ${message}`, new Date().toLocaleTimeString());
+    }
+
+    // Enhanced Voice Recording
+    async function toggleVoiceRecording() {
       if (!currentSettings.voiceEnabled) {
-        appendMessage("bot", "⚠️ الأوامر الصوتية غير مفعلة. يمكنك تفعيلها من الإعدادات.");
+        appendMessage("bot", "⚠️ Voice recognition is disabled. You can enable it in settings.", new Date().toLocaleTimeString());
         return;
       }
 
       if (!recognition) {
-        appendMessage("bot", "❌ التعرف على الكلام غير مدعوم في هذا المتصفح.");
+        showVoiceError("Voice recognition is not supported in this browser.");
         return;
       }
 
-      if (isRecording) {
-        recognition.stop();
-      } else {
-        recognition.start();
+      if (voiceBtn.classList.contains('disabled')) {
+        showVoiceError("Voice recognition is currently unavailable.");
+        return;
+      }
+
+      try {
+        if (isRecording) {
+          recognition.stop();
+        } else {
+          // Request microphone permission first
+          try {
+            await navigator.mediaDevices.getUserMedia({ audio: true });
+            recognition.lang = document.documentElement.lang === 'ar' ? 'ar-SA' : 'en-US';
+            recognition.start();
+          } catch (permissionError) {
+            console.error('🎤 Microphone permission error:', permissionError);
+            showVoiceError("Microphone access denied. Please allow microphone access in your browser settings and try again.");
+          }
+        }
+      } catch (e) {
+        console.error('🎤 Voice recording error:', e);
+        showVoiceError("Failed to start voice recording. Please try again.");
       }
     }
 
@@ -847,54 +1281,72 @@
     function setupTextareaAutoResize() {
       userInput.addEventListener('input', function() {
         this.style.height = 'auto';
-        this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+        this.style.height = Math.min(this.scrollHeight, 150) + 'px';
       });
     }
 
-    // Load chat history from localStorage
+    // Load chat history
     function loadChatHistory() {
-      const history = JSON.parse(localStorage.getItem("chatHistory")) || [];
-      chatBox.innerHTML = '';
-      
-      if (history.length === 0) {
-        // Add welcome message if no history
-        const welcomeMsg = {
-          role: 'bot',
-          content: `مرحباً! أنا ${currentSettings.assistantName}، مساعدك الذكي المدعوم بنموذج Llama-4 Scout. يمكنني مساعدتك في الأسئلة والمحادثات باللغتين العربية والإنجليزية. جرب الميزات الجديدة مثل الأوامر الصوتية والثيمات المختلفة! 🎤🎨`,
-          timestamp: new Date().toLocaleTimeString('ar-EG')
-        };
-        appendMessage(welcomeMsg.role, welcomeMsg.content, welcomeMsg.timestamp);
-      } else {
-        history.forEach(({ role, content, timestamp }) => appendMessage(role, content, timestamp));
+      try {
+        const history = JSON.parse(localStorage.getItem("chatHistory")) || [];
+        chatBox.innerHTML = '';
+        
+        history.forEach(({ role, content, timestamp }) => {
+          appendMessage(role, content, timestamp);
+        });
+      } catch (e) {
+        console.warn('Failed to load chat history:', e);
+        chatBox.innerHTML = '';
       }
     }
 
-    // Save message to localStorage
+    // Save message
     function saveMessage(role, content, timestamp) {
-      const history = JSON.parse(localStorage.getItem("chatHistory")) || [];
-      history.push({ role, content, timestamp });
-      localStorage.setItem("chatHistory", JSON.stringify(history));
+      try {
+        const history = JSON.parse(localStorage.getItem("chatHistory")) || [];
+        history.push({ role: sanitizeInput(role), content: sanitizeInput(content), timestamp: sanitizeInput(timestamp) });
+        
+        // Limit history to last 100 messages for performance
+        if (history.length > 100) {
+          history.splice(0, history.length - 100);
+        }
+        
+        localStorage.setItem("chatHistory", JSON.stringify(history));
+      } catch (e) {
+        console.warn('Failed to save message:', e);
+      }
     }
 
-    // Append message to chat box
-    function appendMessage(role, content, timestamp = new Date().toLocaleTimeString('ar-EG')) {
-      const msg = document.createElement("div");
-      msg.className = `message ${role}`;
+    // Enhanced message display
+    function appendMessage(role, content, timestamp = new Date().toLocaleTimeString()) {
+      const messageId = 'msg-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+      const message = document.createElement("div");
+      message.className = `message ${role}`;
+      message.id = messageId;
       
-      const messageId = 'msg-' + Date.now();
-      msg.innerHTML = `
-        <div class="message-content">${content}</div>
-        <div class="timestamp">
-          <i class="fas fa-${role === 'user' ? 'user' : 'robot'}"></i>
-          <span>${timestamp}</span>
+      const avatar = role === 'user' ? '👤' : '🤖';
+      const sanitizedContent = sanitizeInput(content);
+      
+      message.innerHTML = `
+        <div class="message-wrapper">
+          <div class="message-avatar">${avatar}</div>
+          <div class="message-content-wrapper">
+            <div class="message-content">
+              ${sanitizedContent}
+              <button class="copy-btn" onclick="copyMessage('${messageId}')" title="Copy message">
+                <i class="fas fa-copy"></i>
+              </button>
+            </div>
+            <div class="message-meta">
+              <i class="fas fa-clock"></i>
+              <span>${sanitizeInput(timestamp)}</span>
+              ${role === 'bot' ? '<i class="fas fa-shield-alt" title="Secured response"></i>' : ''}
+            </div>
+          </div>
         </div>
-        <button class="copy-btn" onclick="copyMessage('${messageId}')" title="نسخ الرسالة">
-          <i class="fas fa-copy"></i>
-        </button>
       `;
-      msg.id = messageId;
       
-      chatBox.appendChild(msg);
+      chatBox.appendChild(message);
       chatBox.scrollTop = chatBox.scrollHeight;
       
       if (role === "bot" && currentSettings.soundEnabled) {
@@ -902,33 +1354,54 @@
       }
     }
 
-    // Copy message content
+    // Copy message
     function copyMessage(messageId) {
-      const message = document.getElementById(messageId);
-      const content = message.querySelector(".message-content").textContent;
-      navigator.clipboard.writeText(content).then(() => {
-        const copyBtn = message.querySelector('.copy-btn');
-        const originalHTML = copyBtn.innerHTML;
-        copyBtn.innerHTML = '<i class="fas fa-check"></i>';
-        setTimeout(() => {
-          copyBtn.innerHTML = originalHTML;
-        }, 1000);
-      });
+      try {
+        const message = document.getElementById(messageId);
+        const content = message.querySelector(".message-content").textContent.trim();
+        
+        navigator.clipboard.writeText(content).then(() => {
+          const copyBtn = message.querySelector('.copy-btn i');
+          const originalClass = copyBtn.className;
+          copyBtn.className = 'fas fa-check';
+          setTimeout(() => {
+            copyBtn.className = originalClass;
+          }, 1000);
+        }).catch(() => {
+          // Fallback for older browsers
+          const textArea = document.createElement('textarea');
+          textArea.value = content;
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textArea);
+        });
+      } catch (e) {
+        console.error('Failed to copy message:', e);
+      }
     }
 
-    // Show loading indicator
+    // Loading indicator
     function showLoading() {
       const loading = document.createElement("div");
       loading.className = "loading";
-      loading.innerHTML = `<span>${currentSettings.assistantName} يفكر...</span>`;
+      loading.innerHTML = `
+        <div class="loading-dots">
+          <div class="loading-dot"></div>
+          <div class="loading-dot"></div>
+          <div class="loading-dot"></div>
+        </div>
+        <span>${currentSettings.assistantName} is thinking...</span>
+      `;
       chatBox.appendChild(loading);
       chatBox.scrollTop = chatBox.scrollHeight;
       return loading;
     }
 
-    // Remove loading indicator
     function removeLoading(loading) {
-      if (loading) loading.remove();
+      if (loading && loading.parentNode) {
+        loading.remove();
+      }
     }
 
     // Reset sending state
@@ -936,101 +1409,154 @@
       isSending = false;
       userInput.disabled = false;
       sendBtn.disabled = false;
-      sendBtn.innerHTML = '<i class="fas fa-paper-plane"></i><span>إرسال</span>';
-      appendMessage("bot", "🔄 تم إعادة تعيين حالة الإرسال. يمكنك المحاولة مرة أخرى.");
+      sendBtn.innerHTML = '<i class="fas fa-paper-plane"></i><span>Send</span>';
+      appendMessage("bot", "🔄 Reset completed. You can try sending your message again.", new Date().toLocaleTimeString());
     }
 
-    // Send message to backend
+    // Enhanced send message with security
     async function sendMessage() {
       const message = userInput.value.trim();
-      if (!message || isSending) return;
+      
+      if (!validateInput(message) || isSending) {
+        if (!message) {
+          userInput.focus();
+          return;
+        }
+        if (message.length > 2000) {
+          appendMessage("bot", "❌ Message too long. Please keep it under 2000 characters.", new Date().toLocaleTimeString());
+          return;
+        }
+        return;
+      }
 
+      // Security: Sanitize input
+      const sanitizedMessage = sanitizeInput(message);
+      
       isSending = true;
       userInput.disabled = true;
       sendBtn.disabled = true;
-      sendBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>جارٍ الإرسال...</span>';
+      sendBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Sending...</span>';
       
-      const timestamp = new Date().toLocaleTimeString('ar-EG');
-      appendMessage("user", message, timestamp);
-      saveMessage("user", message, timestamp);
+      const timestamp = new Date().toLocaleTimeString();
+      appendMessage("user", sanitizedMessage, timestamp);
+      saveMessage("user", sanitizedMessage, timestamp);
+      
       userInput.value = "";
       userInput.style.height = 'auto';
 
       const loading = showLoading();
 
       try {
-        const res = await fetch("/api/chat", {
+        const response = await fetch("/api/chat", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { 
+            "Content-Type": "application/json",
+            "X-Requested-With": "XMLHttpRequest" // CSRF protection
+          },
           body: JSON.stringify({ 
-            message: message,
-            temperature: currentSettings.temperature 
+            message: sanitizedMessage,
+            temperature: Math.max(0, Math.min(1, currentSettings.temperature || 0.7))
           })
         });
         
-        if (!res.ok) throw new Error(`Server responded with status ${res.status}`);
-        const data = await res.json();
-        if (!data.reply) throw new Error("No response from SmartAI");
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => ({}));
+          throw new Error(errorData.error || `Server error: ${response.status}`);
+        }
         
-        appendMessage("bot", data.reply);
-        saveMessage("bot", data.reply, new Date().toLocaleTimeString('ar-EG'));
+        const data = await response.json();
+        
+        if (!data.reply) {
+          throw new Error("No response received from AI");
+        }
+        
+        appendMessage("bot", data.reply, new Date().toLocaleTimeString());
+        saveMessage("bot", data.reply, new Date().toLocaleTimeString());
         
       } catch (err) {
-        appendMessage("bot", `❌ خطأ: تعذر الاتصال بالخادم. ${err.message}`);
+        console.error('Send message error:', err);
+        let errorMessage = "❌ Connection error. ";
+        
+        if (err.message.includes('429')) {
+          errorMessage += "Too many requests. Please wait a moment and try again.";
+        } else if (err.message.includes('400')) {
+          errorMessage += "Invalid request. Please check your message and try again.";
+        } else {
+          errorMessage += "Please check your connection and try again.";
+        }
+        
+        appendMessage("bot", errorMessage, new Date().toLocaleTimeString());
       } finally {
         removeLoading(loading);
         isSending = false;
         userInput.disabled = false;
         sendBtn.disabled = false;
-        sendBtn.innerHTML = '<i class="fas fa-paper-plane"></i><span>إرسال</span>';
+        sendBtn.innerHTML = '<i class="fas fa-paper-plane"></i><span>Send</span>';
         userInput.focus();
       }
     }
 
-    // Clear chat and localStorage
+    // Clear chat
     function clearChat() {
-      if (confirm("هل أنت متأكد من حذف جميع المحادثات؟")) {
+      if (confirm("Are you sure you want to clear all conversations?")) {
         chatBox.innerHTML = "";
         localStorage.removeItem("chatHistory");
-        loadChatHistory(); // Reload welcome message
+        appendMessage("bot", "✨ Chat cleared! How can I help you today?", new Date().toLocaleTimeString());
       }
     }
 
-    // Export chat as text
+    // Export chat
     function exportChat() {
-      const history = JSON.parse(localStorage.getItem("chatHistory")) || [];
-      const text = history.map(({ role, content, timestamp }) => 
-        `[${timestamp}] ${role.toUpperCase()}: ${content}`
-      ).join("\n");
-      
-      const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `smartai-chat-${new Date().toISOString().split('T')[0]}.txt`;
-      a.click();
-      URL.revokeObjectURL(url);
+      try {
+        const history = JSON.parse(localStorage.getItem("chatHistory")) || [];
+        
+        if (history.length === 0) {
+          appendMessage("bot", "📝 No chat history to export.", new Date().toLocaleTimeString());
+          return;
+        }
+        
+        const text = history.map(({ role, content, timestamp }) => 
+          `[${timestamp}] ${role.toUpperCase()}: ${content}`
+        ).join("\n");
+        
+        const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `smartai-chat-${new Date().toISOString().split('T')[0]}.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        
+        appendMessage("bot", "📥 Chat exported successfully!", new Date().toLocaleTimeString());
+      } catch (e) {
+        console.error('Export error:', e);
+        appendMessage("bot", "❌ Failed to export chat. Please try again.", new Date().toLocaleTimeString());
+      }
     }
 
-    // Toggle Language Direction
+    // Language toggle
     function toggleDirection() {
       const html = document.documentElement;
-      const dirText = document.getElementById('dir-text');
+      const dirText = document.getElementById('direction-text');
       
       if (html.getAttribute('dir') === 'rtl') {
         html.setAttribute('dir', 'ltr');
         html.setAttribute('lang', 'en');
         dirText.textContent = 'العربية';
-        userInput.placeholder = "Type your message here... (Press Enter to send)";
+        userInput.placeholder = "Type your message here... (Press Enter to send, Shift+Enter for new line)";
+        if (recognition) recognition.lang = 'en-US';
       } else {
         html.setAttribute('dir', 'rtl');
         html.setAttribute('lang', 'ar');
         dirText.textContent = 'English';
-        userInput.placeholder = "اكتب رسالتك هنا... (اضغط Enter للإرسال)";
+        userInput.placeholder = "اكتب رسالتك هنا... (اضغط Enter للإرسال، Shift+Enter لسطر جديد)";
+        if (recognition) recognition.lang = 'ar-SA';
       }
     }
 
-    // Handle Enter key
+    // Enhanced keyboard handling
     function handleKey(event) {
       if (event.key === "Enter" && !event.shiftKey) {
         event.preventDefault();
@@ -1038,7 +1564,7 @@
       }
     }
 
-    // Close settings modal when clicking outside
+    // Close modal when clicking outside
     document.getElementById('settings-modal').addEventListener('click', function(e) {
       if (e.target === this) {
         closeSettings();
@@ -1064,7 +1590,30 @@
         e.preventDefault();
         toggleVoiceRecording();
       }
+      
+      // Escape to close modal
+      if (e.key === 'Escape') {
+        closeSettings();
+      }
     });
+
+    // Security: Prevent XSS in URL parameters
+    function sanitizeURL() {
+      if (window.location.search || window.location.hash) {
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+    }
+
+    // Initialize security
+    sanitizeURL();
+    
+    // Performance monitoring
+    if ('performance' in window) {
+      window.addEventListener('load', () => {
+        const loadTime = performance.now();
+        console.log(`✅ SmartAI loaded in ${Math.round(loadTime)}ms`);
+      });
+    }
   </script>
 </body>
 </html>
